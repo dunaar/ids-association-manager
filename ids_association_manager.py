@@ -219,8 +219,7 @@ class IDsAssociationManager:
             for a in sorted_keys:
                 bs = sorted(list(self._a_to_bs[a]))
                 lines.append(f"  {a} -> {bs}")
-        return "
-".join(lines)
+        return "".join(lines)
         
     def __repr__(self) -> str:
         return (f"<IDsAssociationManager(mode={'Single' if self._single_mode else 'Multi'}, "
