@@ -229,8 +229,7 @@ class IDsAssociationManager:
 # --- MAIN TESTING SECTION ---
 
 def main():
-    print("=== IDsAssociationManager Test Suite ===
-")
+    print("=== IDsAssociationManager Test Suite ===\n")
 
     # TEST 1: Basic Usage & Ordering
     # ------------------------------
@@ -251,8 +250,7 @@ def main():
     mgr_rnd.allocate(200)
     # IDs here are unpredictable (e.g. 1 then 4, or 8 then 2)
     print(f"Unordered: Allocated -> {mgr_rnd.get_bs(100)}, {mgr_rnd.get_bs(200)}")
-    print("OK.
-")
+    print("OK.\n")
 
     # TEST 2: Single Mode Enforcement
     # -------------------------------
@@ -272,8 +270,7 @@ def main():
         print("ERROR: Should have raised ValueError!")
     except ValueError as e:
         print(f"Caught expected error: {e}")
-    print("OK.
-")
+    print("OK.\n")
 
     # TEST 3: Stealing / Re-assignment
     # --------------------------------
@@ -288,8 +285,7 @@ def main():
     print(f"After steal: Parent(2) has {mgr.get_bs(2)}")
     assert 2 not in mgr.get_bs(1)
     assert 2 in mgr.get_bs(2)
-    print("OK.
-")
+    print("OK.\n")
 
     # TEST 4: Tuple Keys & Tuple IDs
     # ------------------------------
@@ -299,8 +295,7 @@ def main():
     mgr.allocate(complex_key)
     print(f"Allocated for tuple key {complex_key}: {mgr.get_bs(complex_key)}")
     print(f"Active Parents: {mgr.get_all_active_a()}")
-    print("OK.
-")
+    print("OK.\n")
 
     # TEST 5: Performance & Display
     # -----------------------------
@@ -309,8 +304,7 @@ def main():
     mgr_demo.associate(999, [1, 3])
     print(mgr_demo)
     
-    print("
-All tests passed successfully.")
+    print("\nAll tests passed successfully.")
 
 if __name__ == "__main__":
     main()
