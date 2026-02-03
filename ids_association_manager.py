@@ -223,8 +223,7 @@ class IDsAssociationManager:
             for a in sorted_keys:
                 bs = sorted(list(self._a_to_bs[a]))
                 lines.append(f"  {a} -> {bs}")
-        return "
-".join(lines)
+        return "\n".join(lines)
         
     def __repr__(self) -> str:
         return (f"<IDsAssociationManager(mode={'Single' if self._single_mode else 'Multi'}, "
@@ -234,8 +233,7 @@ class IDsAssociationManager:
 # --- MAIN TESTING SECTION ---
 
 def main():
-    print("=== IDsAssociationManager Test Suite ===
-")
+    print("=== IDsAssociationManager Test Suite ===\n")
 
     # TEST 1: Basic Usage & Ordering
     print("--- Test 1: Ordered vs Unordered ---")
@@ -246,8 +244,7 @@ def main():
     print(f"Ordered: Allocated -> {mgr_ord.get_bs(100)}, {mgr_ord.get_bs(200)}")
     mgr_ord.remove_a(100) # Frees 0
     print(f"Ordered: Next alloc for 300 -> {mgr_ord.allocate(300)}") # Should be 0
-    print("OK.
-")
+    print("OK.\n")
 
     # TEST 2: Single Mode Idempotency
     print("--- Test 2: Single Mode Idempotency ---")
@@ -273,8 +270,7 @@ def main():
     mgr_single.allocate(10) # Takes 1
     new_forced = mgr_single.allocate(10, force=True) # Frees 1, Takes 1 again (smallest)
     print(f"Force Alloc (optimized): {new_forced}")
-    print("OK.
-")
+    print("OK.\n")
 
     # TEST 3: Stealing
     print("--- Test 3: Resource Stealing ---")
@@ -283,11 +279,9 @@ def main():
     mgr.associate(2, 2)
     assert 2 not in mgr.get_bs(1)
     assert 2 in mgr.get_bs(2)
-    print("OK.
-")
+    print("OK.\n")
 
-    print("
-All tests passed successfully.")
+    print("\nAll tests passed successfully.")
 
 if __name__ == "__main__":
     main()
