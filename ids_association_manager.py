@@ -231,8 +231,7 @@ class IDsAssociationManager:
             for a in sorted_keys:
                 bs = sorted(list(self._a_to_bs[a]))
                 lines.append(f"  {a} -> {bs}")
-        return "
-".join(lines)
+        return "\n".join(lines)
         
     def __repr__(self) -> str:
         return f"<IDsAssociationManager(mode={'Single' if self._single_mode else 'Multi'}, ordered={self._ordered}, free={len(self._free_pool)})>"
@@ -443,8 +442,7 @@ class IDsManyToManyManager:
             next_val = "None"
         lines.append(f"Next Allocation: {next_val}")
         
-        lines.append("
-A -> B Associations:")
+        lines.append("\nA -> B Associations:")
         if not self._a_to_bs:
             lines.append("  (Empty)")
         else:
@@ -456,8 +454,7 @@ A -> B Associations:")
                 bs = sorted(list(self._a_to_bs[a]))
                 lines.append(f"  {a} -> {bs}")
         
-        lines.append("
-B -> A Reverse Map:")
+        lines.append("\nB -> A Reverse Map:")
         if not self._b_to_as:
             lines.append("  (Empty)")
         else:
@@ -465,8 +462,7 @@ B -> A Reverse Map:")
                 as_list = sorted(list(self._b_to_as[b]), key=lambda x: str(x))
                 lines.append(f"  {b} <- {as_list}")
                 
-        return "
-".join(lines)
+        return "\n".join(lines)
         
     def __repr__(self) -> str:
         return f"<IDsManyToManyManager(ordered={self._ordered}, active_a={len(self._a_to_bs)}, active_b={len(self._b_to_as)}, free={len(self._free_pool)})>"
@@ -479,8 +475,7 @@ B -> A Reverse Map:")
 def main():
     print("=" * 70)
     print("EXCLUSIVE MANAGER (IDsAssociationManager) - Tests")
-    print("=" * 70 + "
-")
+    print("=" * 70 + "\n")
 
     print("--- Test 1: Exclusive Stealing ---")
     mgr_excl = IDsAssociationManager(10, ordered=True)
@@ -490,8 +485,7 @@ def main():
     print(f"A=2 has: {mgr_excl.get_bs(2)}")
     print(f"B=5 owned by: {mgr_excl.get_a(5)}")
     assert len(mgr_excl.get_bs(1)) == 0
-    print("✓ Pass
-")
+    print("✓ Pass\n")
 
     print("--- Test 2: Single Mode Idempotency ---")
     mgr_single = IDsAssociationManager(5, single_mode=True, ordered=True)
@@ -500,13 +494,11 @@ def main():
     assert id1 == id2
     id3 = mgr_single.allocate(10, force=True)
     print(f"Idempotent: {id1}, Forced: {id3}")
-    print("✓ Pass
-")
+    print("✓ Pass\n")
 
     print("=" * 70)
     print("NON-EXCLUSIVE MANAGER (IDsManyToManyManager) - Tests")
-    print("=" * 70 + "
-")
+    print("=" * 70 + "\n")
 
     print("--- Test 3: Non-Exclusive Sharing ---")
     mgr_share = IDsManyToManyManager(10, ordered=True)
@@ -517,19 +509,16 @@ def main():
     print(f"B=5 owned by: {mgr_share.get_as(5)}")
     assert 5 in mgr_share.get_bs(1)
     assert 5 in mgr_share.get_bs(2)
-    print("✓ Pass
-")
+    print("✓ Pass\n")
 
     print("--- Test 4: Dissociate ---")
     mgr_share.dissociate(1, 5)
     print(f"After dissociate - A=1: {mgr_share.get_bs(1)}")
     print(f"After dissociate - B=5 owners: {mgr_share.get_as(5)}")
     assert 5 not in mgr_share.get_bs(1)
-    print("✓ Pass
-")
+    print("✓ Pass\n")
 
-    print("
-All tests passed! ✓")
+    print("\nAll tests passed! ✓")
 
 if __name__ == "__main__":
     main()
